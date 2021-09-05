@@ -1,6 +1,10 @@
 #Author: Jack Scallan
 #Updated 10/05/21
-
+import csv
+import sys
+import pandas as pd
+import pdfkit
+import os
 
 def prompt():
     response = input("Would you like to view, add, or delete homework, or quit? (v/a/d/q): ")
@@ -15,13 +19,71 @@ def prompt():
     elif response.lower() in ("d", "delete"):
         delete()
     else:
-        quit()
+        return
+
+def sendData():
+    with open("homeworks.csv", "r") as f:
+        reader = csv.reader(f)
+        out = []
+        for row in reader:
+            out.append(row[1:])
+
+    with open("dataOut.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(['Due Date', 'Name', 'Class'])
+        for i in range(len(out)):
+            writer.writerow(out[i])
+
+
+    dataOut = pd.read_csv("dataOut.csv")
+    #To Excel
+    dataOut.to_excel("homeworks.xlsx", index=False)
+
+    #To HTML
+    pdfOut = pd.read_excel("homeworks.xlsx")
+
+    pdfOut.to_html("temp.html", table_id="my-table", columns=['Due Date', 'Name', 'Class'], col_space=100, index=False)
+
+    text='''
+<style>
+    #my-table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        background-color: #c7f0ff
+    }
+
+    #my-table td {
+        background-color: white;
+    }
+
+    th {
+        text-align: center;
+    }
+
+</style>
+<center>
+<h2>Homeworks</h2>
+        '''
+
+    with open("temp.html", "r+") as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(text.rstrip('\r\n') + '\n' + content)
+
+    with open("temp.html", "a") as f:
+        f.write("</center>")
+
+    #To PDF
+    pdfkit.from_file("temp.html", "homeworks.pdf")
+
+
 
 
 def getRows():
     numRows = 0
-    with open("homeworks.txt", "r") as textFile:
-        for row in textFile:
+    with open("homeworks.csv", "r") as f:
+        reader = csv.reader(f)
+        for row in reader:
             numRows += 1
     return numRows
 
@@ -33,13 +95,13 @@ def sort(list1):
     high = []
 
     if len(list1) > 1:
-        pivot = list1[0][4:9]
+        pivot = list1[0][1]
         for item in list1:
-            if item[4:9] < pivot:
+            if item[1] < pivot:
                 low.append(item)
-            elif item[4:9] == pivot:
+            elif item[1] == pivot:
                 equal.append(item)
-            elif item[4:9] > pivot:
+            elif item[1] > pivot:
                 high.append(item)
         return sort(low) + equal + sort(high)
     else:
@@ -48,8 +110,10 @@ def sort(list1):
 
 def organizeByDate():
     homeworks = []
-    with open("homeworks.txt", "r") as textFile:
-        for row in textFile:
+    with open("homeworks.csv", "r") as f:
+        reader = csv.reader(f)
+
+        for row in reader:
             homeworks.append(row)
 
     if len(homeworks) <= 1:
@@ -57,23 +121,33 @@ def organizeByDate():
 
     homeworks = sort(homeworks)
 
+    with open("homeworks.csv", "w") as f:
+        count = 1
+        for i in range(0, len(homeworks)):
+            homeworks[i][0] = str(count)
+            writer = csv.writer(f)
+            writer.writerow(homeworks[i])
 
-    with open("homeworks.txt", "w") as newFile:
-        count = 0
-        for item in homeworks:
-            newFile.write(str(count) + item[1:])
             count += 1
+
+    sendData()
 
 
 def view():
-    with open("homeworks.txt", "r") as textFile:
+    with open("homeworks.csv", "r") as f:
         numRows = 0
-        for row in textFile:
-            print(row)
+        reader = csv.reader(f)
+
+        for row in reader:
+            print(row[0], " Due Date: ", row[1], " Name: ", row[2], " Class: ", row[3])
             numRows += 1
 
         if numRows == 0:
-            print("You have no homeworks :)")
+            print("You have no homework :)")
+            return
+
+
+        os.system("open homeworks.pdf")
 
 
 def add():
@@ -88,13 +162,12 @@ def add():
         className = input("Enter the class it is for: ")
 
         numRows += 1
-        row = '   '.join([str(numRows), dueDate, homework, className])
 
-        with open("homeworks.txt", "a") as textFile:
-            textFile.write(row)
-            textFile.write("\n")
+        with open("homeworks.csv", "a") as f:
+            writer = csv.writer(f)
+            writer.writerow([str(numRows), dueDate, homework, className])
 
-        print("Added: ", row)
+        print("Homework Added!")
 
         addAnother = input("Would you like to add another homework? (y/n): ")
         if len(addAnother) > 0 and addAnother.lower()[0] != "y": #If user doesn't type yes
@@ -107,27 +180,53 @@ def add():
 
 
 def delete():
+    numHomeworks = 0
+    with open("homeworks.csv", "r") as f:
+        for line in f:
+            numHomeworks += 1
+    if numHomeworks == 0:
+        print("You have no homework!")
+        prompt()
+        return
+
     view()
     lineToDelete = input("Which homework would you like to remove? (give number): ")
+    while not lineToDelete.isnumeric():
+        print("Invalid! Give a number.")
+        lineToDelete = input("Which homework would you like to remove? (give number): ")
+
     deletedLine = ""  #Saving variable for printing later
-    with open("homeworks.txt", "r") as textFile:
-        lines = textFile.readlines()
-        deletedLine = lines[int(lineToDelete) - 1]
-        del lines[int(lineToDelete) - 1]
+
+    with open("homeworks.csv", "r") as f:
+        reader = csv.reader(f)
+        lines = []
+        count = 1
+        for line in reader:
+            if count != int(lineToDelete):
+                lines.append(line)
+            else:
+                deletedLine = line
+            count += 1
 
 
     rowNumber = 1
-    with open("homeworks.txt", "w") as textFile:
-        for line in lines:
-            if int(line[0]) != rowNumber:
-                line = ''.join([str(rowNumber), line[1:]])
+    with open("homeworks.csv", "w") as f:
+        writer = csv.writer(f)
+        count = 1
+        for i in range(0, len(lines)):
+            lines[i][0] = count
+            writer.writerow(lines[i])
+            count += 1
 
-            textFile.write(line)
-            rowNumber += 1
+    print("Removed: ", deletedLine[2])
 
-    print("Removed: ", deletedLine)
-
+    print("Remaining homeworks: \n")
     view()
+    print()
+
+    sendData()
+
+    prompt()
 
 
 
