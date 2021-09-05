@@ -13,7 +13,7 @@ Built in python, this program requests for the input of the user (prompting for 
 
 ---
 
-##REQUIREMENTS (installations required):
+## REQUIREMENTS (installations required):
 - Program works the best on LINUX operating systems.
 - User must have Python installed
 - User needs to install: openpyxl, pandas, pandas xlrd pdfkit, 
@@ -24,4 +24,4 @@ Built in python, this program requests for the input of the user (prompting for 
 - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
 **Example**
-http://g.recordit.co/7s5Jn5s5eG.gif
+<img src="http://g.recordit.co/7s5Jn5s5eG.gif"/>
