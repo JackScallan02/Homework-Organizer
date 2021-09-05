@@ -8,7 +8,7 @@ This python program allows the user to easily enter their homeworks, and then ta
 
 ---
 
-### How it works:
+## How it works:
 Built in python, this program requests for the input of the user (prompting for the homeworks they want to enter), and creates a readable PDF file. First, the homework inputs are recorded onto a csv file. Then, using the Pandas library, the csv file is exported onto an excel file. Next, once again using the pandas library, we read from this excel sheet and then format it using an HTML/CSS file. Finally, utilizing pdfkit and wkhtmltopdf, the file is then exported to a PDF.
 
 ---
@@ -23,5 +23,5 @@ Built in python, this program requests for the input of the user (prompting for 
 - pdfkit: `pip install pandas xlrd pdfkit`
 - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
-**Example:**\
+### Example:\
 <img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="1000" alt="example-gif"/>
