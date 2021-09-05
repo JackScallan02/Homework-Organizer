@@ -23,5 +23,5 @@ Built in python, this program requests for the input of the user (prompting for 
 - pdfkit: `pip install pandas xlrd pdfkit`
 - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
-### Example:\
+### Example:
 <img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="1000" alt="example-gif"/>
