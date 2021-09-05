@@ -24,4 +24,4 @@ Built in python, this program requests for the input of the user (prompting for 
 - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
 **Example**
-<img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="50"/>
+<img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="500"/>
