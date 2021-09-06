@@ -13,7 +13,7 @@ def prompt():
         response = input("Would you like to view, add, or delete homework, or quit? (v/a/d/q): ")
 
     if response.lower() in ("v", "view"):
-        view()
+        view(True)
     elif response.lower() in ("a", "add"):
         add()
     elif response.lower() in ("d", "delete"):
@@ -133,7 +133,7 @@ def organizeByDate():
     sendData()
 
 
-def view():
+def view(openPDF):
     with open("homeworks.csv", "r") as f:
         numRows = 0
         reader = csv.reader(f)
@@ -146,8 +146,8 @@ def view():
             print("You have no homework :)")
             return
 
-
-        os.system("open homeworks.pdf")
+        if openPDF:
+            os.system("open homeworks.pdf")
 
 
 def add():
@@ -189,7 +189,7 @@ def delete():
         prompt()
         return
 
-    view()
+    view(False)
     lineToDelete = input("Which homework would you like to remove? (give number): ")
     while not lineToDelete.isnumeric():
         print("Invalid! Give a number.")
@@ -221,7 +221,7 @@ def delete():
     print("Removed: ", deletedLine[2])
 
     print("Remaining homeworks: \n")
-    view()
+    view(False)
     print()
 
     sendData()
