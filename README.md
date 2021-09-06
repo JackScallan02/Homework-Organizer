@@ -16,12 +16,11 @@ Built in python, this program requests for the input of the user (prompting for 
 ## REQUIREMENTS (installations required):
 - Program works the best on LINUX operating systems.
 - User must have Python installed
-- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, 
-
-- openpyxl: `pip install openpyxl`
-- pandas: `pip install pandas`
-- pdfkit: `pip install pandas xlrd pdfkit`
-- wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf
+  - openpyxl: `pip install openpyxl`
+  - pandas: `pip install pandas`
+  - pdfkit: `pip install pandas xlrd pdfkit`
+  - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
 ### Example:
 <img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="1000" alt="example-gif"/>
