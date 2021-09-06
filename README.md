@@ -23,4 +23,8 @@ Built in python, this program requests for the input of the user (prompting for 
   - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
 ### Example:
+**Adding and Viewing Files:**
 <img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="1000" alt="example-gif"/>
+
+**Deleting and Viewing Files:**
+<img src="http://g.recordit.co/Xvsb5Dv8XG.gif" width="1000" alt="example-gif"/>
