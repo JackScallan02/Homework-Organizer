@@ -9,6 +9,22 @@ import boto3
 from botocore.exceptions import ClientError
 import codecs
 
+
+#Enter in your verified email in sender and recipient.
+SENDER = ""
+RECIPIENT = ""
+with open("email-info/email-info.txt", "r") as f:
+    i = 0
+    for line in f:
+        # print(line)
+        if not line.isspace():
+            i += 1
+        if i == 1:
+            SENDER = line[15:len(line) - 2]
+        elif i == 2:
+            RECIPIENT = line[18:len(line) - 2]
+            break
+
 def prompt():
     response = input("Would you like to view, add, delete homework, send email, or quit? (v/a/d/e/q): ")
 
@@ -114,8 +130,10 @@ def sendData():
         return
 
 def sendEmail():
-    SENDER = "Sender Name <jackwebsite101@gmail.com>"
-    RECIPIENT = "jack.gregory.scallan@gmail.com"
+    if SENDER == "" or RECIPIENT == "":
+        print("No email specified! Enter your email in email-info/email-info.txt")
+        return
+
     AWS_REGION = "us-east-1"
     SUBJECT = "Your Homeworks"
     BODY_TEXT = ("Amazon SES Test (Python)\r\n"
