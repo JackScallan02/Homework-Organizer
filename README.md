@@ -9,7 +9,7 @@ This python program allows the user to easily enter their homeworks, and then ta
 ---
 
 ## How it works:
-Built in python, this program requests for the input of the user (prompting for the homeworks they want to enter), and creates a readable PDF file. First, the homework inputs are recorded onto a csv file. Then, using the Pandas library, the csv file is exported onto an excel file. Next, once again using the pandas library, we read from this excel sheet and then format it using an HTML/CSS file. Finally, utilizing pdfkit and wkhtmltopdf, the file is then exported to a PDF.
+Built in python, this program requests for the input of the user (prompting for the homeworks they want to enter), and creates a readable PDF file. First, the homework inputs are recorded onto a csv file. Then, using the Pandas library, the csv file is exported onto an excel file. Next, once again using the pandas library, we read from this excel sheet and then format it using an HTML/CSS file. Finally, utilizing pdfkit and wkhtmltopdf, the file is then exported to a PDF. Then, a user can choose to send an email of their homeworks due at any time.
 
 ---
 
@@ -21,6 +21,12 @@ Built in python, this program requests for the input of the user (prompting for 
   - pandas: `pip install pandas`
   - pdfkit: `pip install pandas xlrd pdfkit`
   - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+
+**FOR SENDING AN EMAIL (OPTIONAL)
+1. Create an AWS account.
+2. Verify an email.
+3. Create an access key and type `aws configure` in terminal. Enter in information.
+4. Modify the email in the python file.
 
 ### Example:
 **Adding and Viewing Files:**
