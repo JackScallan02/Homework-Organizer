@@ -16,7 +16,7 @@ Built in python, this program requests for the input of the user (prompting for 
 ## REQUIREMENTS (installations required):
 - Program works the best on LINUX operating systems.
 - User must have Python installed
-- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf
+- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf, boto3
   - openpyxl: `pip install openpyxl`
   - pandas: `pip install pandas`
   - pdfkit: `pip install pandas xlrd pdfkit`
