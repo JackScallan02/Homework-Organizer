@@ -26,7 +26,7 @@ Built in python, this program requests for the input of the user (prompting for 
 1. Create an AWS account.
 2. Verify an email.
 3. Create an access key and type `aws configure` in terminal. Enter in information.
-4. Modify the email in the python file.
+4. Modify the email in the email-info/email-info.txt file.
 
 ### Example:
 **Adding and Viewing Files:**
