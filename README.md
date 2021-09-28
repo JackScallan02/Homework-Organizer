@@ -35,3 +35,6 @@ Built in python, this program requests for the input of the user (prompting for 
 
 **Deleting and Viewing Files:**
 <img src="http://g.recordit.co/Xvsb5Dv8XG.gif" width="1000" alt="example-gif"/>
+
+**Screenshot of a Sent Email:**
+<img width="1017" alt="Screen Shot 2021-09-28 at 4 41 08 PM" src="https://user-images.githubusercontent.com/54595949/135162876-5f9d82be-7151-4384-8d62-b35608d025ae.png">
