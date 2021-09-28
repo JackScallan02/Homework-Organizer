@@ -1,15 +1,18 @@
 #Author: Jack Scallan
-#Updated 10/05/21
+#Updated 09/28/21
 import csv
 import sys
 import pandas as pd
 import pdfkit
 import os
+import boto3
+from botocore.exceptions import ClientError
+import codecs
 
 def prompt():
-    response = input("Would you like to view, add, or delete homework, or quit? (v/a/d/q): ")
+    response = input("Would you like to view, add, delete homework, send email, or quit? (v/a/d/e/q): ")
 
-    while response.lower() not in ("v", "a", "d", "q", "view", "add", "delete", "quit"):
+    while response.lower() not in ("v", "a", "d", "e", "q", "view", "add", "delete", "email", "quit"):
         response = input("Would you like to view, add, or delete homework, or quit? (v/a/d/q): ")
 
     if response.lower() in ("v", "view"):
@@ -18,8 +21,35 @@ def prompt():
         add()
     elif response.lower() in ("d", "delete"):
         delete()
+    elif response.lower() in ("e", "email"):
+        sendEmail()
     else:
         return
+
+
+# def classNames():
+#     print("Enter your classes. Type \"Done\" to finish.")
+#     classes = []
+#     className = ""
+#     classNumber = 1
+#
+#     while className.lower() != "done":
+#         classDisplay = "Class {}: ".format(classNumber)
+#         className = input(classDisplay)
+#         classNumber += 1
+#         classes.append(className)
+#     print("Classes: ", ', '.join(classes[:len(classes) - 1]))
+#     confirmation = input("Confirm? (y/n): ")
+#     while confirmation.lower() not in ("y", "ye", "yes", "n", "no"):
+#         confirmation = input("Confirm? (y/n): ")
+#
+#     if confirmation.lower() not in ("y", "ye", "yes"):
+#         classNames()
+#
+#     with open("classes.csv", "w") as f:
+#         writer = csv.writer(f)
+#         writer.writerow(classes[:len(classes) - 1])
+
 
 def sendData():
     with open("homeworks.csv", "r") as f:
@@ -40,16 +70,16 @@ def sendData():
     dataOut.to_excel("homeworks.xlsx", index=False)
 
     #To HTML
-    pdfOut = pd.read_excel("homeworks.xlsx")
+    htmlOut = pd.read_excel("homeworks.xlsx")
 
-    pdfOut.to_html("temp.html", table_id="my-table", columns=['Due Date', 'Name', 'Class'], col_space=100, index=False)
+    htmlOut.to_html("temp.html", table_id="my-table", columns=['Due Date', 'Name', 'Class'], col_space=100, index=False)
 
     text='''
 <style>
     #my-table {
         border: 1px solid black;
         border-collapse: collapse;
-        background-color: #c7f0ff
+        background-color: #c7f0ff;
     }
 
     #my-table td {
@@ -70,12 +100,127 @@ def sendData():
         f.seek(0, 0)
         f.write(text.rstrip('\r\n') + '\n' + content)
 
+
     with open("temp.html", "a") as f:
         f.write("</center>")
 
     #To PDF
     pdfkit.from_file("temp.html", "homeworks.pdf")
 
+    try:
+        os.system("cp homeworks.pdf ~/Desktop")
+    except:
+        print("Failed to move file to desktop.")
+        return
+
+def sendEmail():
+    SENDER = "Sender Name <jackwebsite101@gmail.com>"
+    RECIPIENT = "jack.gregory.scallan@gmail.com"
+    AWS_REGION = "us-east-1"
+    SUBJECT = "Your Homeworks"
+    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+             "This email was sent with Amazon SES using the "
+             "AWS SDK for Python (Boto)."
+            )
+
+
+    text='''
+    <style>
+        #my-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            background-color: #c7f0ff;
+        }
+
+        #my-table td {
+            background-color: white;
+        }
+
+        th {
+            text-align: center;
+        }
+
+    </style>
+    <center>
+            '''
+
+    i = 0
+    content = codecs.open("temp.html", "r")
+    BODY_HTML = content.read()
+    BODY_HTML = BODY_HTML[255:]
+
+    htmlStr1 = '''
+    <!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #my-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            background-color: #c7f0ff;
+            color: black;
+        }
+
+        #my-table td {
+            background-color: white;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        h2 {
+            color: black;
+        }
+
+    </style>
+ </head>
+ <center>
+    '''
+    htmlStr2 = '''</html>'''
+
+
+    BODY_HTML = htmlStr1 + BODY_HTML + htmlStr2
+
+    # print(BODY_HTML)
+
+    CHARSET = "UTF-8"
+    client = boto3.client('ses',region_name=AWS_REGION)
+    try:
+        print("Sending email...")
+    #Provide the contents of the email.
+        response = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': CHARSET,
+                        'Data': BODY_HTML,
+                    },
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': BODY_TEXT,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': SUBJECT,
+                },
+            },
+            Source=SENDER,
+            # If you are not using a configuration set, comment or delete the
+            # following line
+            # ConfigurationSetName=CONFIGURATION_SET,
+        )
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent!"),
+        # print(response['MessageId'])
 
 
 
@@ -167,6 +312,7 @@ def add():
             writer = csv.writer(f)
             writer.writerow([str(numRows), dueDate, homework, className])
 
+        sendData()
         print("Homework Added!")
 
         addAnother = input("Would you like to add another homework? (y/n): ")
@@ -232,4 +378,12 @@ def delete():
 
 
 if __name__ == "__main__":
+    # userInput = input("Would you like to modify your homeworks, or customize your classes? (m/c)")
+    # while userInput not in ("m", "c", "modify", "homeworks", "h", "class", "classes"):
+    #     print("Invalid input!")
+    #     userInput = input("Would you like to modify your homeworks, or customize your classes? (m/c)")
+    #
+    # # if userInput in ("m", "modify", "homeworks", "h"):
     prompt()
+    # else:
+    #     classNames()
