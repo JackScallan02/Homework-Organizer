@@ -21,6 +21,7 @@ Built in python, this program requests for the input of the user (prompting for 
   - pandas: `pip install pandas`
   - pdfkit: `pip install pandas xlrd pdfkit`
   - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+  - boto3: `pip install boto3`
 
 ## FOR SENDING AN EMAIL (OPTIONAL)
 1. Create an AWS account.
