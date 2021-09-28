@@ -1,0 +1,2 @@
+EMAIL-SENDER: <example@example.com>
+EMAIL-RECIPIENT: <example@example.com>
