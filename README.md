@@ -16,17 +16,18 @@ Built in python, this program requests for the input of the user (prompting for 
 ## REQUIREMENTS (installations required):
 - Program works the best on LINUX operating systems.
 - User must have Python installed
-- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf
+- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf, boto3
   - openpyxl: `pip install openpyxl`
   - pandas: `pip install pandas`
   - pdfkit: `pip install pandas xlrd pdfkit`
   - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+  - boto3: `pip install boto3`
 
 ## FOR SENDING AN EMAIL (OPTIONAL)
 1. Create an AWS account.
 2. Verify an email.
 3. Create an access key and type `aws configure` in terminal. Enter in information.
-4. Modify the email in the python file.
+4. Modify the email in the email-info/email-info.txt file.
 
 ### Example:
 **Adding and Viewing Files:**
@@ -34,3 +35,6 @@ Built in python, this program requests for the input of the user (prompting for 
 
 **Deleting and Viewing Files:**
 <img src="http://g.recordit.co/Xvsb5Dv8XG.gif" width="1000" alt="example-gif"/>
+
+**Screenshot of a Sent Email:**
+<img width="1017" alt="Screen Shot 2021-09-28 at 4 41 08 PM" src="https://user-images.githubusercontent.com/54595949/135162876-5f9d82be-7151-4384-8d62-b35608d025ae.png">
