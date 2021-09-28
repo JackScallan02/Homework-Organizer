@@ -22,7 +22,7 @@ Built in python, this program requests for the input of the user (prompting for 
   - pdfkit: `pip install pandas xlrd pdfkit`
   - wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
 
-**FOR SENDING AN EMAIL (OPTIONAL)
+## FOR SENDING AN EMAIL (OPTIONAL)
 1. Create an AWS account.
 2. Verify an email.
 3. Create an access key and type `aws configure` in terminal. Enter in information.
