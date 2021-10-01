@@ -1,5 +1,5 @@
 # Homework-Organizer
-This python program allows the user to easily enter their homeworks, and then takes that data and organizes it in a readily available excel sheet and PDF file, ordered by due date.
+This program, built in Python, allows the user to easily enter their homeworks, and then takes that data and organizes it in a readily available excel sheet and PDF file, ordered by due date.
 
 **HOW TO USE:**
 1. Download source file, and move to an easily accessible location.
