@@ -9,14 +9,15 @@ This python program allows the user to easily enter their homeworks, and then ta
 ---
 
 ## How it works:
-Built in python, this program requests for the input of the user (prompting for the homeworks they want to enter), and creates a readable PDF file. First, the homework inputs are recorded onto a csv file. Then, using the Pandas library, the csv file is exported onto an excel file. Next, once again using the pandas library, we read from this excel sheet and then format it using an HTML/CSS file. Finally, utilizing pdfkit and wkhtmltopdf, the file is then exported to a PDF. Then, a user can choose to send an email of their homeworks due at any time.
+Built in python, this program requests for the input of the user (prompting for the homeworks they want to enter), and creates a readable PDF file. First, the homework inputs are recorded onto a csv file, with their homeworks listed in order by due date. Then, using the Pandas library, the csv file is exported onto an excel file. The user will have a nicely formatted excel file to be able to use.
+Next, once again using the pandas library, we read from this excel sheet and then format it using an HTML/CSS file. Finally, utilizing pdfkit and wkhtmltopdf, the file is then exported to an easy to read PDF. Then, a user can choose to send an email of their homeworks to themselves.
 
 ---
 
 ## REQUIREMENTS (installations required):
 - Program works the best on LINUX operating systems.
 - User must have Python installed
-- User needs to install: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf, boto3
+- User needs to have installed: openpyxl, pandas, pandas xlrd pdfkit, wkhtmltopdf, boto3
   - openpyxl: `pip install openpyxl`
   - pandas: `pip install pandas`
   - pdfkit: `pip install pandas xlrd pdfkit`
