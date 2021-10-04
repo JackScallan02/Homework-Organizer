@@ -10,7 +10,6 @@ from botocore.exceptions import ClientError
 import codecs
 
 
-#Enter in your verified email in sender and recipient.
 SENDER = ""
 RECIPIENT = ""
 with open("email-info/email-info.txt", "r") as f:
