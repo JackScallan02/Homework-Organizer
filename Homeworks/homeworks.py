@@ -12,17 +12,20 @@ import codecs
 
 SENDER = ""
 RECIPIENT = ""
-with open("email-info/email-info.txt", "r") as f:
-    i = 0
-    for line in f:
-        # print(line)
-        if not line.isspace():
-            i += 1
-        if i == 1:
-            SENDER = line[15:len(line) - 2]
-        elif i == 2:
-            RECIPIENT = line[18:len(line) - 2]
-            break
+try:
+    with open("email-info/email-info.txt", "r") as f:
+        i = 0
+        for line in f:
+            # print(line)
+            if not line.isspace():
+                i += 1
+            if i == 1:
+                SENDER = line[15:len(line) - 2]
+            elif i == 2:
+                RECIPIENT = line[18:len(line) - 2]
+                break
+ except:
+    pass
 
 def prompt():
     response = input("Would you like to view, add, delete homework, send email, or quit? (v/a/d/e/q): ")
