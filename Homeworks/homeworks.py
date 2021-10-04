@@ -24,7 +24,7 @@ try:
             elif i == 2:
                 RECIPIENT = line[18:len(line) - 2]
                 break
- except:
+except:
     pass
 
 def prompt():
