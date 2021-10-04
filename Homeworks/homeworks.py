@@ -45,30 +45,6 @@ def prompt():
         return
 
 
-# def classNames():
-#     print("Enter your classes. Type \"Done\" to finish.")
-#     classes = []
-#     className = ""
-#     classNumber = 1
-#
-#     while className.lower() != "done":
-#         classDisplay = "Class {}: ".format(classNumber)
-#         className = input(classDisplay)
-#         classNumber += 1
-#         classes.append(className)
-#     print("Classes: ", ', '.join(classes[:len(classes) - 1]))
-#     confirmation = input("Confirm? (y/n): ")
-#     while confirmation.lower() not in ("y", "ye", "yes", "n", "no"):
-#         confirmation = input("Confirm? (y/n): ")
-#
-#     if confirmation.lower() not in ("y", "ye", "yes"):
-#         classNames()
-#
-#     with open("classes.csv", "w") as f:
-#         writer = csv.writer(f)
-#         writer.writerow(classes[:len(classes) - 1])
-
-
 def sendData():
     with open("homeworks.csv", "r") as f:
         reader = csv.reader(f)
@@ -138,31 +114,6 @@ def sendEmail():
 
     AWS_REGION = "us-east-1"
     SUBJECT = "Your Homeworks"
-    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
-             "This email was sent with Amazon SES using the "
-             "AWS SDK for Python (Boto)."
-            )
-
-
-    text='''
-    <style>
-        #my-table {
-            border: 1px solid black;
-            border-collapse: collapse;
-            background-color: #c7f0ff;
-        }
-
-        #my-table td {
-            background-color: white;
-        }
-
-        th {
-            text-align: center;
-        }
-
-    </style>
-    <center>
-            '''
 
     i = 0
     content = codecs.open("temp.html", "r")
@@ -398,12 +349,6 @@ def delete():
 
 
 if __name__ == "__main__":
-    # userInput = input("Would you like to modify your homeworks, or customize your classes? (m/c)")
-    # while userInput not in ("m", "c", "modify", "homeworks", "h", "class", "classes"):
-    #     print("Invalid input!")
-    #     userInput = input("Would you like to modify your homeworks, or customize your classes? (m/c)")
-    #
-    # # if userInput in ("m", "modify", "homeworks", "h"):
+
     prompt()
-    # else:
-    #     classNames()
+
