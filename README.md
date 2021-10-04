@@ -30,6 +30,8 @@ Next, once again using the pandas library, we read from this excel sheet and the
 3. Create an access key and type `aws configure` in terminal. Enter in information.
 4. Modify the email in the email-info/email-info.txt file.
 
+---
+
 ### Example:
 **Adding and Viewing Files:**
 <img src="http://g.recordit.co/7s5Jn5s5eG.gif" width="1000" alt="example-gif"/>
