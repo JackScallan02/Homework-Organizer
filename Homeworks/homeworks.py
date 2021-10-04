@@ -75,15 +75,12 @@ def sendData():
         border-collapse: collapse;
         background-color: #c7f0ff;
     }
-
     #my-table td {
         background-color: white;
     }
-
     th {
         text-align: center;
     }
-
 </style>
 <center>
 <h2>Homeworks</h2>
@@ -118,7 +115,7 @@ def sendEmail():
     i = 0
     content = codecs.open("temp.html", "r")
     BODY_HTML = content.read()
-    BODY_HTML = BODY_HTML[255:]
+    BODY_HTML = BODY_HTML[253:]
 
     htmlStr1 = '''
     <!DOCTYPE html>
@@ -131,19 +128,15 @@ def sendEmail():
             background-color: #c7f0ff;
             color: black;
         }
-
         #my-table td {
             background-color: white;
         }
-
         th {
             text-align: center;
         }
-
         h2 {
             color: black;
         }
-
     </style>
  </head>
  <center>
@@ -153,7 +146,9 @@ def sendEmail():
 
     BODY_HTML = htmlStr1 + BODY_HTML + htmlStr2
 
-    # print(BODY_HTML)
+    print(BODY_HTML)
+
+    BODY_TEXT = "Application doesn't support HTML"
 
     CHARSET = "UTF-8"
     client = boto3.client('ses',region_name=AWS_REGION)
@@ -283,7 +278,6 @@ def add():
             writer = csv.writer(f)
             writer.writerow([str(numRows), dueDate, homework, className])
 
-        sendData()
         print("Homework Added!")
 
         addAnother = input("Would you like to add another homework? (y/n): ")
@@ -351,4 +345,3 @@ def delete():
 if __name__ == "__main__":
 
     prompt()
-
