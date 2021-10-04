@@ -146,8 +146,6 @@ def sendEmail():
 
     BODY_HTML = htmlStr1 + BODY_HTML + htmlStr2
 
-    print(BODY_HTML)
-
     BODY_TEXT = "Application doesn't support HTML"
 
     CHARSET = "UTF-8"
